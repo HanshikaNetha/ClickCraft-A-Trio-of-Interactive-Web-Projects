@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quote Generator</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+            #FirstLine{
+                color: white;
+                font-size: 26px;
+                padding: 20px;
+            }
+            #quoteContainer {
+                width: 500px;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.5); 
+            }
+            #quote {
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+            #author{
+                text-align: right;
+                font-size: 27px;
+                margin-bottom: 15px;
+            }
+            #newQuoteButton {
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                color: white;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8 ); 
+            }
+        </style>
+    </head>
+    <body>
+        <div id="FirstLine"></div>
+        <div id="quoteContainer">
+            <div id="quote"></div>
+            <div id="author"></div>
+            <button id="newQuoteButton">New Quote</button>
+        </div>
+        <script>
+            const quotes = [
+            { quote: "\"The highest education is that which does not merely give us information but makes our life in harmony with all existence.\"", author: "- Rabindranath Tagore" },
+        { quote: "\"Wherever you go becomes a part of you somehow.\"", author: "- Anita Desai" },
+        { quote: "\"The past is always with us, for nothing that once happened can ever be forgotten, even if we cannot remember it.\"", author: "- Ruskin Bond" },
+        { quote: "\"Travel is a search for meaning, for an understanding of other people's lives.\"", author: "- Vikram Seth" },
+        { quote: "\"We are at our best when we are polite and generous to the weakest among us.\"", author: "- Khushwant Singh" },
+        { quote: "\"Life is what happens when you're busy making other plans.\"", author: "- John Lennon" },
+        { quote: "\"Spread love everywhere you go. Let no one ever come to you without leaving happier.\"", author: "- Mother Teresa" },
+        { quote: "\"You can't cross the sea merely by standing and staring at the water.\"", author: "- Rabindranath Tagore" },
+        { quote: "\"Life is about making right things and going on.\"", author: "- R.K. Narayan" }
+            ];
+
+            const colors = [
+                "skyblue", "grey", "purple", "palevioletred", "darkred", "teal", "oliveDrab", "darkgreen", "black", "midnightblue"
+            ];
+
+            function getRandomElement(arr) {
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
+
+            function firstLine() {
+                const now = new Date();
+                const hours = now.getHours();
+                let timeOfDay;
+                if (hours >= 5 && hours < 12) {
+                    timeOfDay = "morning";
+                } else if (hours >= 12 && hours < 17) {
+                    timeOfDay = "afternoon";
+                } else {
+                    timeOfDay = "night";
+                }
+                document.getElementById("FirstLine").innerText = `Let's start our ${timeOfDay} with a new quote`;
+            }
+
+            function newQuote() {
+                const randomQuote = getRandomElement(quotes);
+                const randomColor = getRandomElement(colors);
+                
+                document.getElementById("quote").innerText = randomQuote.quote;
+                document.getElementById('author').innerText= randomQuote.author;
+                document.body.style.backgroundColor = randomColor;
+                document.getElementById("quoteContainer").style.color = randomColor;
+                document.getElementById("newQuoteButton").style.backgroundColor = randomColor;
+                document.getElementById("newQuoteButton").style.color = "#FFFFFF";
+            }
+
+            document.getElementById("newQuoteButton").addEventListener("click", newQuote);
+
+            firstLine();
+            newQuote();  
+        </script>
+    </body>
+</html>

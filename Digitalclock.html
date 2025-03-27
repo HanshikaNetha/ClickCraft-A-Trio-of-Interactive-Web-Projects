@@ -1,0 +1,92 @@
+!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+        #heading {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: white;
+            letter-spacing: 6px;
+        }
+        #clock {
+            font-size: 100px;
+            color: white;
+            letter-spacing: 10px;
+        }
+        #date {
+            font-size: 50px;
+            color: white;
+            letter-spacing: 8px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 15px;
+            border-radius: 8px;
+            background-color: white; 
+            color: black; 
+        }
+    </style>
+</head>
+<body>
+    <div id="heading">Digital Clock</div>
+    <br>
+    <div id="clock">00:00:00</div>
+    <br>
+    <div id="date"></div>
+    <div class="button-container">
+        <button id="stop">Stop</button>
+        <button id="start">Start</button>
+    </div>
+
+    <script>
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+        const startButton = document.getElementById('start');
+        const stopButton = document.getElementById('stop');
+        let clockInterval;
+
+        function displayDate() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            dateElement.textContent = date;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function startClock() {
+            updateClock();
+            clockInterval = setInterval(updateClock, 1000);
+        }
+
+        function stopClock() {
+            clearInterval(clockInterval);
+        }
+
+        startButton.addEventListener('click', startClock);
+        stopButton.addEventListener('click', stopClock);
+
+        displayDate();
+        startClock();
+    </script>
+</body>
+</html>

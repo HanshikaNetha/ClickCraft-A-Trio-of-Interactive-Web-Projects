@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ID Card Generator</title>
+    <link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Geneva, sans-serif;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+        #headline {
+            background-color: #4047F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 15%;
+            color: white;
+            font-size: 42px;
+            font-weight: 600;
+        }
+        #main {
+            display: flex;
+            flex: 1;
+            background-color: white;
+        }
+        #leftpart {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            margin-left: 10%;
+        }
+        #rightpart {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+        }
+        .line {
+            width: 1px;
+            background-color: lightgrey;
+        }
+        .lefttop {
+            font-size: 30px;
+            color: #4047F0;
+            font-weight: 550;
+            padding-bottom: 50px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 550;
+        }
+        .form-group input[type="text"] {
+            width: 220px;
+            height: 30px;
+            padding: 5px;
+            padding-left: 35px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 2px solid lightgrey;
+        }
+        .form-group input[type="file"] {
+            border: 0px;
+        }
+        .form-group button {
+            background-color: #4047F0;
+            color: white;
+            font-weight: 550;
+            font-size: 15px;
+            border-radius: 10px;
+            width: 140px;
+            height: 40px;
+            border-color: #4047F0;
+        }
+        .form-group i{
+            position: absolute;
+            padding: 13px;
+        }
+        .righttop{
+            font-size: 30px;
+            font-weight: 550;
+            margin-bottom: 20px;
+        }
+        #id-card {
+            display: flex;
+            border-radius: 10px;
+            padding: 0px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        #id-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top, #4047F0, #8f94fb);
+            position: relative;
+            border-radius: 10px;
+        }
+        #id-left img {
+            width: 110px;
+            height: 110px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            border-radius: 35%;
+            object-fit: fill;
+        }
+        #id-right {
+            flex: 2;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            background-color: whitesmoke;
+        }
+        #id-right p {
+            margin: 5px 0;
+            font-size: 20px;
+            color: lightgrey;
+        }
+        .label {
+            color: grey;
+            font-size: 18px;
+        }
+        .value {
+            color: black;
+            font-size: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="headline">ID Card Generator</div>
+        <div id="main">
+            <div id="leftpart">
+                <div class="lefttop">Enter Student Details</div>
+                <div class="form-group">
+                    <label for="name">Enter name:<br></label>
+                    <i class="fa fa-user icon"></i>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="college">Enter college name:<br></label>
+                    <i class="fas fa-landmark"></i>
+                    <input type="text" id="college" name="college" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Enter location:<br></label>
+                    <i class="fas fa-address-book"></i>
+                    <input type="text" id="location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="picture">Enter student's picture:<br></label>
+                    <input type="file" id="picture" name="picture" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <button class="generate-button" onclick="generateCard()">Generate Card</button>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div id="rightpart"></div>
+        </div>
+    </div>
+    <script>
+        function generateCard() {
+            const name = document.getElementById('name').value;
+            const college = document.getElementById('college').value;
+            const location = document.getElementById('location').value;
+            const picture = document.getElementById('picture').files[0];
+
+            if (name && college && location && picture) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const pictureUrl = e.target.result;
+
+                    const idCard = `
+                        <div class="righttop">Generated ID Card</div>
+                        <div id="id-card">
+                            <div id="id-left">
+                                <img src="${pictureUrl}" alt="Student Picture">
+                            </div>
+                            <div id="id-right">
+                                <p><span class="label">Name:</span> <span class="value">${name}</span></p>
+                                <p><span class="label">College:</span> <span class="value">${college}</span></p>
+                                <p><span class="label">Location:</span> <span class="value">${location}</span></p>
+                            </div>
+                        </div>
+                    `;
+
+                    document.getElementById('rightpart').innerHTML = idCard;
+                };
+                reader.readAsDataURL(picture);
+            } else {
+                alert('Please fill out all fields and upload a picture.');
+            }
+        }
+    </script>
+</body>
+</html>
